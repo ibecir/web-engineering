@@ -29,4 +29,5 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.addUser(user));
     }
+
 }

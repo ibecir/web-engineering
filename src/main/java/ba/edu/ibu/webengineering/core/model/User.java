@@ -11,6 +11,7 @@ public class User {
     private String userId;
     private String name;
     private Date creationDate = new Date();
+    private String type;
 
     public String getUserId() {
         return userId;
@@ -34,5 +35,13 @@ public class User {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
