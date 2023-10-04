@@ -22,7 +22,6 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
     public ResponseEntity<List<User>> getUsers() {
-        System.out.println("Only important for commit");
         return ResponseEntity.ok(userService.getUsers());
     }
 
