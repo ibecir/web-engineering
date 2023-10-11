@@ -13,3 +13,7 @@ logging:
           mongodb:
             core:
               org.springframework.data.mongodb.core.MongoTemplate: INFO
+
+configuration:
+  swagger:
+    mail: 'becir.isakovic@ibu.edu.ba' # TODO read this in the swagger config file
