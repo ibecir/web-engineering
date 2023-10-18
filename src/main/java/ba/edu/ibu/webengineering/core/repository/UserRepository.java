@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
@@ -18,4 +19,12 @@ public interface UserRepository extends MongoRepository<User, String> {
         { $match: { _id: { $exists: true } } }
     """)
     public List<User> getAllUsersCustom();
+
+
+    @Query(value="{email:'?0'}", fields="{'userId': 0, 'name' : 1, 'email' : 1, 'username': 1}")
+    Optional<User> findUserByEmailCustom(String email);
+
+    public Optional<User> findFirstByEmail(String email);
+
+    public List<User> findUserByEmailAndTypeOrderByCreationDateDesc(String email);
 }

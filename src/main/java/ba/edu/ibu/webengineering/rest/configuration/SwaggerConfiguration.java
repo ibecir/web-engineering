@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
-                title = "Doctors365",
+                title = "IBU Web Enginering",
                 version = "1.0.0",
                 description = "Web Engineering Backend Application",
                 contact = @Contact(name = "Web Engineering", email = "becir.isakovic@ibu.edu.ba")
