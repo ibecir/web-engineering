@@ -5,6 +5,9 @@ import ba.edu.ibu.webengineering.core.exceptions.repository.ResourceNotFoundExce
 import ba.edu.ibu.webengineering.core.model.User;
 import ba.edu.ibu.webengineering.core.repository.UserRepository;
 import ba.edu.ibu.webengineering.rest.dto.UserDTO;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,28 +25,7 @@ public class UserService {
     }
 
     public List<User> getUsers() {
-        Optional<User> user = userRepository.findFirstByEmail("Becir");
-        if(user.isPresent()){
-            User becir = user.get();
-        }
-
-        return userRepository.findUserByEmailAndTypeOrderByCreationDateDesc("Becir");
-    }
-
-    public UserDTO addUser(User payload) {
-        User user = userRepository.save(payload);
-
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getUserId());
-        userDTO.setUserType(user.getUserType());
-        userDTO.setName(user.getName());
-        userDTO.setUsername(user.getUsername());
-        List<User> users = userRepository.findAll();
-
-        String response = mailSender.sendEmail(users, "ibecir");
-        System.out.println("THE RESPONSE IS " + response);
-
-        return userDTO;
+        return userRepository.findAll();
     }
 
     public UserDTO updateUser(String id, User payload) {
@@ -75,6 +57,16 @@ public class UserService {
             return user.get();
 
         return null;
+    }
+
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) {
+                return userRepository.findFirstByEmail(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            }
+        };
     }
 
 }

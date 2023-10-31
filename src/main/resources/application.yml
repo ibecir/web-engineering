@@ -19,3 +19,7 @@ email:
     from-email: Excited User <mailgun@sandboxe07bbd31526745b3a36d99843ba35ff6.mailgun.org>
     username: api
     password: key-1eb78e83ef72914b3c27ff20bfbde91e-3750a53b-77aac5f7
+
+security:
+  jwt:
+    secret: 'mXLjT3Gm4skNsCdntWodbHPb1GqY35fGVaisLwImIp8cLZP7W6'

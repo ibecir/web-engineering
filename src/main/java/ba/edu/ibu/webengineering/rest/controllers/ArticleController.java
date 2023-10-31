@@ -3,8 +3,10 @@ package ba.edu.ibu.webengineering.rest.controllers;
 import ba.edu.ibu.webengineering.core.model.Article;
 import ba.edu.ibu.webengineering.core.model.enums.ArticleType;
 import ba.edu.ibu.webengineering.core.service.ArticleService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/articles")
+@SecurityRequirement(name = "JWT Security")
 public class ArticleController {
     private final ArticleService articleService;
 
@@ -20,7 +23,7 @@ public class ArticleController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    public ResponseEntity<List<Article>> getAll(){
+    public ResponseEntity<List<Article>> getAll() throws IllegalAccessException {
         List<Article> articles = articleService.getAllArticles();
         return ResponseEntity.ok(articles);
     }
