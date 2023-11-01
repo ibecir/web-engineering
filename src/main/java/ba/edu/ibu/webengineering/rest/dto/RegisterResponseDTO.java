@@ -2,27 +2,25 @@ package ba.edu.ibu.webengineering.rest.dto;
 
 import ba.edu.ibu.webengineering.core.model.enums.UserType;
 
-public class UserDTO {
-    private String id;
-    private String name;
+public class RegisterResponseDTO {
+    private String email;
     private String username;
     private UserType userType;
-    private String password;
 
-    public String getId() {
-        return id;
+    private Exception exception;
+
+    public RegisterResponseDTO(String email, String username, UserType userType) {
+        this.email = email;
+        this.username = username;
+        this.userType = userType;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getEmail() {
+        return email;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {
@@ -39,13 +37,5 @@ public class UserDTO {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

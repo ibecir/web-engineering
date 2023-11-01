@@ -2,6 +2,8 @@ package ba.edu.ibu.webengineering.core.service;
 
 import ba.edu.ibu.webengineering.core.model.User;
 import ba.edu.ibu.webengineering.core.repository.UserRepository;
+import ba.edu.ibu.webengineering.rest.dto.LoginResponseDTO;
+import ba.edu.ibu.webengineering.rest.dto.RegisterResponseDTO;
 import ba.edu.ibu.webengineering.rest.dto.UserDTO;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,26 +27,24 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
-    public User addUser(UserDTO payload) {
+    public RegisterResponseDTO addUser(UserDTO payload) {
         User user = new User();
         user.setUsername(payload.getUsername());
         user.setName(payload.getName());
         user.setEmail(payload.getUsername());
-        user.setPassword(passwordEncoder.encode(payload.getName()));
+        user.setPassword(passwordEncoder.encode(payload.getPassword()));
         user.setUserType(payload.getUserType());
 
         user = userRepository.save(user);
-        return user;
+
+        return new RegisterResponseDTO(user.getEmail(), user.getUsername(), user.getUserType());
     }
 
-    public String login(String email, String password){
-        Authentication authenticate = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, password)
-        );
+    public LoginResponseDTO login(String email, String password) {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
         Optional<User> loggedInUser = userRepository.findFirstByEmail(email);
-        if(loggedInUser.isPresent())
-            return jwtService.generateToken(loggedInUser.get());
+        if (loggedInUser.isPresent()) return new LoginResponseDTO(jwtService.generateToken(loggedInUser.get()), 200);
         return null;
     }
 }

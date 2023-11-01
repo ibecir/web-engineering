@@ -2,6 +2,8 @@ package ba.edu.ibu.webengineering.rest.controllers;
 
 import ba.edu.ibu.webengineering.core.model.User;
 import ba.edu.ibu.webengineering.core.service.AuthService;
+import ba.edu.ibu.webengineering.rest.dto.LoginResponseDTO;
+import ba.edu.ibu.webengineering.rest.dto.RegisterResponseDTO;
 import ba.edu.ibu.webengineering.rest.dto.UserDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +18,12 @@ public class AuthController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/register")
-    public ResponseEntity<User> register(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<RegisterResponseDTO> register(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(authService.addUser(userDTO));
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/login")
-    public ResponseEntity<String> login(@RequestParam("email") String email, @RequestParam("password") String password) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestParam("email") String email, @RequestParam("password") String password) {
         return ResponseEntity.ok(authService.login(email, password));
     }
 }
