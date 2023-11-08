@@ -21,5 +21,11 @@ email:
     password: key-1eb78e83ef72914b3c27ff20bfbde91e-3750a53b-77aac5f7
 
 security:
+  basic:
+    enabled: false
   jwt:
     secret: 'mXLjT3Gm4skNsCdntWodbHPb1GqY35fGVaisLwImIp8cLZP7W6'
+
+management:
+  security:
+    enabled: false

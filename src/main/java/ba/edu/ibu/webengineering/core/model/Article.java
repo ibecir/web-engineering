@@ -16,6 +16,11 @@ public class Article {
     private Date createdAt = new Date(System.currentTimeMillis());
     private ArticleType articleType;
 
+    public Article(String thumbnailUrl, String title) {
+        this.thumbnailUrl = thumbnailUrl;
+        this.title = title;
+    }
+
     public String getId() {
         return id;
     }
