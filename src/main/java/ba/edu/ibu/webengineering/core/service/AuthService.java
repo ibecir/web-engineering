@@ -1,5 +1,6 @@
 package ba.edu.ibu.webengineering.core.service;
 
+import ba.edu.ibu.webengineering.core.exceptions.auth.UserAlreadyExistsException;
 import ba.edu.ibu.webengineering.core.model.User;
 import ba.edu.ibu.webengineering.core.repository.UserRepository;
 import ba.edu.ibu.webengineering.rest.dto.LoginResponseDTO;
@@ -28,6 +29,10 @@ public class AuthService {
     }
 
     public RegisterResponseDTO addUser(UserDTO payload) {
+        Optional<User> optionalUser = userRepository.findFirstByEmail(payload.getUsername());
+        if(optionalUser.isPresent())
+            throw new UserAlreadyExistsException("User with provided payload already exists");
+
         User user = new User();
         user.setUsername(payload.getUsername());
         user.setName(payload.getName());
