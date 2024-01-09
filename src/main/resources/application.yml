@@ -1,9 +1,8 @@
 spring:
   data:
     mongodb:
-      host: localhost
-      port: 27017
       database: webengineering
+      uri: mongodb+srv://becirisakovic:1fqAwCKflDYZwCue@web-engineering.uphhlzw.mongodb.net/?retryWrites=true&w=majority
 
 logging:
   level:
