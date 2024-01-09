@@ -15,7 +15,6 @@ import java.util.Map;
 
 @Component
 public class MainSocketHandler implements WebSocketHandler {
-    public static Integer counter = 0;
     private final JwtService jwtService;
     private final UserService userService;
     public Map<String, WebSocketSession> sessions = new HashMap<>();
@@ -28,8 +27,7 @@ public class MainSocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         User user = getUser(session);
-        if(user == null)
-            return;
+        if (user == null) return;
 
         sessions.put(user.getUserId(), session);
         System.out.println("Session created for the user " + user.getUserId() + " where the session id is " + session.getId());
@@ -37,15 +35,8 @@ public class MainSocketHandler implements WebSocketHandler {
 
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-        int userId = 2;
-        WebSocketSession userSession = sessions.get(userId);
         String messageReceived = (String) message.getPayload();
-        if (userSession == null) {
-            userSession = session;
-        }
-
-        System.out.println(new TextMessage("Message sent from session " + session.getId() + " to sessions " + userSession.getId() + " with payload " + messageReceived));
-        userSession.sendMessage(new TextMessage("Message sent from session " + session.getId() + " to sessions " + userSession.getId() + " with payload " + messageReceived));
+        System.out.println("Message received");
     }
 
     @Override
@@ -55,6 +46,9 @@ public class MainSocketHandler implements WebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
+        User user = getUser(session);
+        if (user == null) return;
+        sessions.remove(user.getUserId());
         System.out.println("Connection closed for session " + session.getId() + " with status ### " + closeStatus.getReason());
     }
 

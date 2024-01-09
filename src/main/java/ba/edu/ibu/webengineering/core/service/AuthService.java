@@ -49,6 +49,7 @@ public class AuthService {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
         Optional<User> loggedInUser = userRepository.findFirstByEmail(email);
+        System.out.println(loggedInUser.get().getName());
         if (loggedInUser.isPresent()) return new LoginResponseDTO(jwtService.generateToken(loggedInUser.get()), 200);
         return null;
     }

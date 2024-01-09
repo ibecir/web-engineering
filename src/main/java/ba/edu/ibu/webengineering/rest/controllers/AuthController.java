@@ -31,7 +31,8 @@ public class AuthController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/get")
-    public ResponseEntity<String> login() {
+    public ResponseEntity<String> loginss() {
         return ResponseEntity.ok("GOOD");
     }
+
 }

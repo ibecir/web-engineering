@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public List<User> getUsers() {
-        return userRepository.findAll();
+        return userRepository.findAllByOrderByCreationDateDesc();
     }
 
     public UserDTO updateUser(String id, User payload) {

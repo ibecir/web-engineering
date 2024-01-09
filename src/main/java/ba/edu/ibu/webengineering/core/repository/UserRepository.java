@@ -27,4 +27,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     public Optional<User> findFirstByEmail(String email);
 
     public List<User> findUserByEmailAndTypeOrderByCreationDateDesc(String email);
+
+    public List<User> findAllByOrderByCreationDateDesc();
 }

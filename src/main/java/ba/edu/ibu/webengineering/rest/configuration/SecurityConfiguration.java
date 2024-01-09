@@ -36,8 +36,12 @@ public class SecurityConfiguration {
                 request -> request
                         .requestMatchers("/users/**").authenticated()
                         .anyRequest().permitAll()
-        ).sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-         .csrf(AbstractHttpConfigurer::disable);;
+        ).sessionManagement
+                        (manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .cors(cors -> cors.disable())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+         .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
